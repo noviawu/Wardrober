@@ -6,22 +6,23 @@
 import React from "react";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/frontpage.jpeg")}
         style={styles.backgroundImg}
       >
-        <View style={styles.welcome}>
-          <View style={styles.text}>
-            <Text style={{ fontSize: 30, fontFamily: "Cochin" }}>
-              Welcome...
-            </Text>
-          </View>
-        </View>
         <View style={styles.logo}>
           <Text style={{ fontSize: 40, fontFamily: "Cochin" }}>WARDROBER</Text>
+        </View>
+        <View style={styles.welcome}>
+          <Text
+            style={{ fontSize: 30, fontFamily: "Cochin" }}
+            onPress={() => navigation.navigate("Details")}
+          >
+            continue...
+          </Text>
         </View>
       </ImageBackground>
     </View>
@@ -38,18 +39,17 @@ const styles = StyleSheet.create({
   backgroundImg: {
     width: "100%",
     height: "100%",
-    flexDirection: "column-reverse",
+    flexDirection: "column",
   },
   logo: {
-    flex: 0.7,
+    flex: 8.5,
     alignItems: "center",
+    justifyContent: "flex-start",
+    top: 100,
   },
   welcome: {
-    flex: 0.15,
+    flex: 1.5,
     backgroundColor: "#ffffbf",
-  },
-  text: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -1,26 +1,17 @@
 /**
  * This will be my static creative application for a wordrobe selector
  * Author: Novia Wu
- * Date: 9/20/2021 
+ * Date: 9/28/2021
  */
 
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import ItemCard from './components/ItemCard';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import Welcome from "./components/Welcome";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ItemCard start={10} name="Student"></ItemCard>
-    </View>
+    <NavigationContainer>
+      <Welcome />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

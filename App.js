@@ -5,37 +5,33 @@
  */
 
 import React from "react";
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Welcome from "./components/Welcome";
-import Wardrobe from "./components/Wardrobe";
+import Welcome from "./screens/Welcome";
+import AddItem from "./screens/AddItem";
+import Home from "./screens/Home";
 
-export default function App() {
+export default function App(props) {
   const Stack = createNativeStackNavigator();
 
   function WelcomeScreen() {
     return <Welcome />;
   }
 
-  function DetailsScreen() {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Details Screen</Text>
-      </View>
-    );
+  function HomeScreen() {
+    return <Home />;
   }
 
-  function WardrobeScreen() {
-    return <Wardrobe />;
+  function AddItemScreen() {
+    return <AddItem />;
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Wardrobe">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-        <Stack.Screen name="Wardrobe" component={WardrobeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AddItem" component={AddItemScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

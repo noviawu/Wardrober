@@ -3,7 +3,8 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { Avatar, Button, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddItem = (props) => {
@@ -28,7 +29,6 @@ const AddItem = (props) => {
 
   const getData = async () => {
     try {
-      // the '@profile_info' can be any string
       const jsonValue = await AsyncStorage.getItem("wardrobe_items");
       let data = null;
       if (jsonValue != null) {
@@ -44,46 +44,54 @@ const AddItem = (props) => {
     } catch (e) {
       console.log("error in getData ");
       console.dir(e);
-      // error reading value
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}> New Item</Text>
-      <TextInput
-        style={styles.textinput}
-        placeholder="name"
-        onChangeText={(text) => {
-          setName(text);
-        }}
-        value={name}
-      />
-      <TextInput
-        style={styles.textinput}
-        placeholder="category"
-        onChangeText={(text) => {
-          setCategory(text);
-        }}
-        value={category}
-      />
-      <Button
-        color="red"
-        title="Save Item"
-        onPress={() => {
-          console.log("saving item");
-          const theInfo = { name: name, category: category };
-          console.log(`theInfo=${theInfo}`);
-          console.log("data=" + JSON.stringify(theInfo));
-          storeItem(theInfo);
-        }}
-      />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.title}>
+        <Text style={styles.header}> New Item</Text>
+        <Avatar.Image
+          size={260}
+          source={{ uri: "https://picsum.photos/700" }}
+        />
+      </View>
+      <View>
+        <TextInput
+          // style={styles.textinput}
+          label="Name"
+          value={name}
+          onChangeText={(text) => {
+            setName(text);
+          }}
+          value={name}
+        />
+        <TextInput
+          style={styles.textinput}
+          placeholder="category"
+          onChangeText={(text) => {
+            setCategory(text);
+          }}
+          value={category}
+        />
+        <Button
+          color="red"
+          title="Save Item"
+          onPress={() => {
+            console.log("saving item");
+            const theInfo = { name: name, category: category };
+            console.log(`theInfo=${theInfo}`);
+            console.log("data=" + JSON.stringify(theInfo));
+            storeItem(theInfo);
+          }}
+        />
+      </View>
       <View>
         <Text>
           name={name} category={category}
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -91,16 +99,20 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#fff",
+    //alignItems: "center",
+  },
+  title: {
+    flex: 1,
+    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
   },
   textinput: {
     margin: 20,
     fontSize: 20,
   },
   header: {
-    fontSize: 40,
-    color: "blue",
+    fontSize: 36,
+    color: "black",
   },
 });
 

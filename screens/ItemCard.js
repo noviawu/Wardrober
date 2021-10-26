@@ -15,9 +15,7 @@ const ItemCard = () => {
   const getData = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      //console.log(keys);
       const result = await AsyncStorage.multiGet(keys);
-      //console.log(result);
       const a = result.map((req) => JSON.parse(req[1]));
       console.log(a);
       setWardrobe(a);

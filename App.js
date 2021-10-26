@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-// import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import Welcome from "./screens/Welcome";
@@ -15,13 +15,13 @@ import Home from "./screens/Home";
 export default function App(props) {
   const Stack = createNativeStackNavigator();
 
-  // function WelcomeScreen() {
-  //   return <Welcome />;
-  // }
+  function WelcomeScreen() {
+    return <Welcome />;
+  }
 
-  // function HomeScreen() {
-  //   return <Home />;
-  // }
+  function HomeScreen() {
+    return <Home />;
+  }
 
   // function AddItemScreen() {
   //   return <AddItem />;
@@ -46,7 +46,13 @@ export default function App(props) {
     //   </Stack.Navigator>
     // </NavigationContainer>
     <PaperProvider theme={theme}>
-      <Home />
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* <Home /> */}
     </PaperProvider>
   );
 }

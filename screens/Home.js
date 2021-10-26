@@ -10,12 +10,28 @@ const AddItemRoute = () => <AddItem />;
 
 const FavoritesRoute = () => <Favorites />;
 
+const lebelAddItem = (
+  <Text style={{ fontFamily: "Cochin", textAlign: "center", fontSize: 16 }}>
+    AddItem
+  </Text>
+);
+const lebelWardrobe = (
+  <Text style={{ fontFamily: "Cochin", textAlign: "center", fontSize: 16 }}>
+    Wardrobe
+  </Text>
+);
+const lebelFavorites = (
+  <Text style={{ fontFamily: "Cochin", textAlign: "center", fontSize: 16 }}>
+    Favorites
+  </Text>
+);
+
 const Home = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "addItem", title: "Add Item", icon: "plus" },
-    { key: "wardrobe", title: "Wardrobe", icon: "hanger" },
-    { key: "favorites", title: "Favorites", icon: "heart" },
+    { key: "addItem", title: lebelAddItem, icon: "plus" },
+    { key: "wardrobe", title: lebelWardrobe, icon: "hanger" },
+    { key: "favorites", title: lebelFavorites, icon: "heart" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({

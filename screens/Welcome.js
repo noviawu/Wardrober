@@ -5,7 +5,7 @@
  */
 import React from "react";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 
 const Welcome = () => {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/frontpage.jpeg")}
+        source={require("../assets/frontpage.png")}
         style={styles.backgroundImg}
       >
         <View style={styles.logo}>
@@ -22,7 +22,7 @@ const Welcome = () => {
         <View style={styles.welcome}>
           <Text
             style={{ fontSize: 30, fontFamily: "Cochin" }}
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.dispatch(StackActions.replace("Home"))}
           >
             continue...
           </Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   welcome: {
     flex: 1.5,
-    backgroundColor: "#ffffbf",
+    backgroundColor: "#E89941",
     alignItems: "center",
     justifyContent: "center",
   },

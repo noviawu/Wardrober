@@ -4,15 +4,16 @@
  * Date: 9/29/2021
  */
 import React from "react";
-import { StyleSheet, View, Text, Button, SafeAreaView } from "react-native";
-// import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
+import ItemCard from "./ItemCard";
 
 const Favorites = () => {
   // const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      <ItemCard />
+      {/* <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 1 }}>
           <View style={{ flex: 1, backgroundColor: "pink" }}>
             <Text style={{ fontSize: 24 }}> pink</Text>
@@ -46,7 +47,7 @@ const Favorites = () => {
             <Text style={{ fontSize: 24 }}> silver</Text>
           </View>
         </View>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

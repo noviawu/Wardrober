@@ -12,10 +12,6 @@ const AddItem = (props) => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
   /**
    * saves the item info in the asych storage
    * @param {*} value the object containing all the item information
@@ -31,28 +27,10 @@ const AddItem = (props) => {
       console.dir(e);
     }
   };
-  /**
-   * commented out this section because this page does not need to use asych to get the stored data
-   */
-  // const getData = async () => {
-  //   try {
-  //     const jsonValue = await AsyncStorage.getItem("wardrobe_items");
-  //     let data = null;
-  //     if (jsonValue != null) {
-  //       data = JSON.parse(jsonValue);
-  //       setName(data.name);
-  //       setCategory(data.category);
-  //       console.log("just set Name and Category");
-  //     } else {
-  //       console.log("just read a null value from Storage");
-  //       setName("");
-  //       setCategory("");
-  //     }
-  //   } catch (e) {
-  //     console.log("error in getData ");
-  //     console.dir(e);
-  //   }
-  // };
+
+  const labelName = <Text style={{ fontFamily: "Cochin" }}>Name</Text>;
+  const labelCategory = <Text style={{ fontFamily: "Cochin" }}>Category</Text>;
+  const labelBrand = <Text style={{ fontFamily: "Cochin" }}>Brand</Text>;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,7 +41,7 @@ const AddItem = (props) => {
       <View>
         <TextInput
           style={styles.textinput}
-          label="Name"
+          label={labelName}
           onChangeText={(text) => {
             setName(text);
           }}
@@ -71,7 +49,7 @@ const AddItem = (props) => {
         />
         <TextInput
           style={styles.textinput}
-          label="Category"
+          label={labelCategory}
           onChangeText={(text) => {
             setCategory(text);
           }}
@@ -79,7 +57,7 @@ const AddItem = (props) => {
         />
         <TextInput
           style={styles.textinput}
-          label="Brand"
+          label={labelBrand}
           onChangeText={(text) => {
             setBrand(text);
           }}
@@ -98,7 +76,7 @@ const AddItem = (props) => {
           setCategory("");
         }}
       >
-        Save
+        <Text style={{ fontFamily: "Cochin", color: "black" }}>Save</Text>
       </Button>
     </SafeAreaView>
   );
@@ -116,6 +94,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 36,
+    fontFamily: "Cochin",
     color: "black",
   },
   textinput: {

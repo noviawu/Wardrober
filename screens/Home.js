@@ -29,8 +29,8 @@ const lebelFavorites = (
 const Home = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "addItem", title: lebelAddItem, icon: "plus" },
     { key: "wardrobe", title: lebelWardrobe, icon: "hanger" },
+    { key: "addItem", title: lebelAddItem, icon: "plus" },
     { key: "favorites", title: lebelFavorites, icon: "heart" },
   ]);
 

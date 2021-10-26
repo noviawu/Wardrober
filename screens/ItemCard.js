@@ -10,7 +10,7 @@ const ItemCard = () => {
 
   useEffect(() => {
     getData();
-  });
+  }, []); // i think i need to change the re-render frequency bc it goes into a loop here
 
   const getData = async () => {
     try {
@@ -25,11 +25,12 @@ const ItemCard = () => {
     }
   };
 
+  let i = 0;
   return (
     <View>
       {wardrobe.map((item) => {
         return (
-          <View>
+          <View key={i++}>
             <Text>
               Name: {item.name} , Category: {item.category} , Brand:{" "}
               {item.brand}

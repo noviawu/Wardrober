@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 8.5,
     alignItems: "center",
     justifyContent: "flex-start",
-    top: 100,
+    top: 150,
   },
   welcome: {
     flex: 1.5,

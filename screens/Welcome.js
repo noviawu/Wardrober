@@ -3,13 +3,14 @@
  * Author: Novia Wu
  * Date: 9/29/2021
  */
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";
 import { useNavigation, StackActions } from "@react-navigation/native";
+import { AppContext } from "../AppContext";
 
 const Welcome = () => {
   const navigation = useNavigation();
-
+  const contextValue = useContext(AppContext);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -24,7 +25,7 @@ const Welcome = () => {
             style={{ fontSize: 30, fontFamily: "Cochin" }}
             onPress={() => navigation.dispatch(StackActions.replace("Home"))}
           >
-            continue...
+            Hi {contextValue} ...
           </Text>
         </View>
       </ImageBackground>

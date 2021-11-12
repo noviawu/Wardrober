@@ -3,15 +3,32 @@
  * Author: Novia Wu
  * Date: 9/29/2021
  */
-import React from "react";
-import { StyleSheet, View, Text, SafeAreaView } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, Text, SafeAreaView, FlatList } from "react-native";
 import ItemCard from "./ItemCard";
+import { AppContext } from "../AppContext";
 
 const Favorites = () => {
-  // const navigation = useNavigation();
+  const contextValue = useContext(AppContext);
 
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.listItem}>
+  //     <Text style={styles.itemText}>{item.name}</Text>
+  //   </View>
+  // );
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.title}>
+        <Text style={styles.header}> {contextValue}'s Favorites</Text>
+      </View>
+      {/* <View style={styles.list}>
+        <FlatList
+          style={{ alignSelf: "flex-start" }}
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View> */}
       <ItemCard />
       {/* <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 1 }}>
@@ -63,6 +80,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "yellow",
+  },
+  title: {
+    flex: 1,
+  },
+  header: {
+    fontSize: 36,
+    fontFamily: "Cochin",
+    color: "black",
   },
 });
 

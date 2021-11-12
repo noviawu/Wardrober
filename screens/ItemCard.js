@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View } from "react-native";
+import { Text, View, FlatList, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ItemCard = () => {
@@ -25,10 +25,16 @@ const ItemCard = () => {
     }
   };
 
+  const renderItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Text style={styles.itemText}>{item.name}</Text>
+    </View>
+  );
+
   let i = 0;
   return (
-    <View>
-      {wardrobe.map((item) => {
+    <View style={styles.list}>
+      {/* {wardrobe.map((item) => {
         return (
           <View key={i++}>
             <Text>
@@ -37,9 +43,31 @@ const ItemCard = () => {
             </Text>
           </View>
         );
-      })}
+      })} */}
+      <FlatList
+        style={{ alignSelf: "flex-start" }}
+        data={wardrobe}
+        renderItem={renderItem}
+        key={i++}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    flex: 5,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  listItem: {
+    backgroundColor: "#F8DE90",
+    padding: 20,
+    marginVertical: 5,
+  },
+  itemText: {
+    fontSize: 28,
+  },
+});
 
 export default ItemCard;

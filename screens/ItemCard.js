@@ -1,16 +1,30 @@
+/**
+ * This is the item card that will display the items' information
+ * Author: Novia Wu
+ * Date: 12/2/2021
+ */
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, FlatList, StyleSheet, Image } from "react-native";
+import { firebaseRealtimeDB } from "../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ItemCard = () => {
-  // const [name, setName] = useState("");
-  // const [category, setCategory] = useState("");
-  // const [brand, setBrand] = useState("");
   const [wardrobe, setWardrobe] = useState([]);
 
   useEffect(() => {
-    getData();
-  }, []); // i think i need to change the re-render frequency bc it goes into a loop here
+    const getWardrobe = () => {
+      firebaseRealtimeDB.ref("items").on("value", (querySnapshot) => {
+        if (querySnapshot.exists()) {
+          const items = Object.values(querySnapshot.val());
+          console.log(items);
+          setWardrobe(items);
+        } else {
+          console.log("No items found");
+        }
+      });
+    };
+    getWardrobe();
+  }, []);
 
   const getData = async () => {
     try {
@@ -28,6 +42,12 @@ const ItemCard = () => {
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
       <Text style={styles.itemText}>{item.name}</Text>
+      <Image
+        source={{
+          uri: item.image_url,
+        }}
+        style={styles.photo}
+      ></Image>
     </View>
   );
 
@@ -48,7 +68,10 @@ const ItemCard = () => {
         style={{ alignSelf: "flex-start" }}
         data={wardrobe}
         renderItem={renderItem}
-        key={i++}
+        keyExtractor={() => {
+          const key = i++;
+          return key.toString();
+        }}
       />
     </View>
   );
@@ -64,9 +87,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8DE90",
     padding: 20,
     marginVertical: 5,
+    width: 350,
+    alignItems: "center",
+    justifyContent: "center",
   },
   itemText: {
     fontSize: 28,
+  },
+  photo: {
+    width: 300,
+    height: 300,
   },
 });
 

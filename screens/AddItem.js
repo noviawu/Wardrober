@@ -3,6 +3,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { firebaseRealtimeDB } from "../firebase";
 import {
   StyleSheet,
   Text,
@@ -11,14 +12,17 @@ import {
   KeyboardAvoidingView,
   Dimensions,
   Image,
+  Alert,
   Keyboard,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Modal,
 } from "react-native";
 import { Camera } from "expo-camera";
-import { Avatar, Button, TextInput, List } from "react-native-paper";
+import * as ImagePicker from "expo-image-picker";
+import { Avatar, Button, TextInput } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { generateID, uploadImage } from "../utils/utils";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -29,6 +33,36 @@ const AddItem = (props) => {
   const [brand, setBrand] = useState("");
   const [cameraOpen, setCameraOpen] = useState(false);
   const [imageURI, setImageURI] = useState();
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    Keyboard.dismiss();
+    const id = generateID.getRandomID();
+    const url = await uploadImage.uploadImageAsync(imageURI);
+    // upload the new product to Firebase Realtime Database
+    var item = {
+      id: id,
+      name: name,
+      category: category,
+      brand: brand,
+      image_url: url,
+      created_at: Date.now(),
+    };
+    firebaseRealtimeDB
+      .ref("items")
+      .child(id)
+      .set(item, (err) => {
+        if (err) {
+          Alert.alert("Item could not be saved: " + err);
+        } else {
+          Alert.alert("Item saved successfully");
+        }
+      });
+    setName("");
+    setBrand("");
+    setCategory("");
+    setImageURI();
+  };
 
   /**
    * saves the item info in the asych storage
@@ -110,15 +144,19 @@ const AddItem = (props) => {
             />
           </View>
           <Button
+            disabled={!(name && category && brand && imageURI)}
             style={styles.button}
             mode="outlined"
             compact={true}
-            onPress={() => {
-              const theInfo = { name, category, brand }; //=== name:name, category:category...
-              storeItem(theInfo, name);
-              setName("");
-              setBrand("");
-              setCategory("");
+            // onPress={() => {
+            //   const theInfo = { name, category, brand, image: imageURI }; //=== name:name, category:category...
+            //   storeItem(theInfo, name);
+            //   setName("");
+            //   setBrand("");
+            //   setCategory("");
+            // }}
+            onPress={(e) => {
+              handleSave(e);
             }}
           >
             <Text style={{ fontFamily: "Cochin", color: "black" }}>Save</Text>
@@ -160,8 +198,6 @@ function CameraView({ closeCamera, setImageURI }) {
   const takePhoto = async () => {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync();
-      console.log("photo URI", photo.uri);
-      console.log(photo);
       setImageURI(photo.uri);
       closeCamera();
     }
@@ -174,8 +210,6 @@ function CameraView({ closeCamera, setImageURI }) {
       aspect: [1, 1],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       setImageURI(result.uri);
@@ -200,7 +234,7 @@ function CameraView({ closeCamera, setImageURI }) {
           >
             Back
           </Text>
-          <Avatar.Icon icon="camera" size={24} onPress={resetType} />
+          <Avatar.Icon icon="repeat" size={24} onPress={resetType} />
         </View>
       </View>
       <View style={{ height: windowWidth }}>
@@ -216,13 +250,13 @@ function CameraView({ closeCamera, setImageURI }) {
         <View style={cameraStyles.cameraButtonsContainer}>
           <Avatar.Icon
             style={{ flex: 1 }}
-            icon="camera"
+            icon="image"
             size={30}
             color="white"
             onPress={pickImage}
           />
           <TouchableOpacity style={{ flex: 1 }} onPress={takePhoto}>
-            <View>
+            <View style={{ alignItems: "center" }}>
               <View
                 style={{
                   borderWidth: 2,
@@ -270,6 +304,7 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: "Cochin",
     color: "black",
+    marginBottom: 30,
   },
   textinput: {
     marginTop: 20,

@@ -1,3 +1,9 @@
+/**
+ * This will be the home page which is essentially a router for the other pages, the real home page is the wardrobe page
+ * Author: Novia Wu
+ * Date: 12/2/2021
+ */
+
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import Wardrobe from "./Wardrobe.js";

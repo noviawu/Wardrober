@@ -1,7 +1,7 @@
 /**
  * This will be the welcome page which display an image and a welcome button that leads to home screen
  * Author: Novia Wu
- * Date: 9/29/2021
+ * Date: 12/2/2021
  */
 import React, { useContext } from "react";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";

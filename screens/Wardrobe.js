@@ -1,10 +1,17 @@
 /**
  * This will be the wardrobe page where people can see snippets of clothings etc.
  * Author: Novia Wu
- * Date: 9/29/2021
+ * Date: 12/2/2021
  */
 import React from "react";
-import { StyleSheet, View, Text, Button, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  SafeAreaView,
+  Image,
+} from "react-native";
 // import { useNavigation } from "@react-navigation/native";
 
 const Wardrobe = () => {

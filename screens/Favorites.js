@@ -1,22 +1,69 @@
 /**
  * This will be the favorites screen where users can see what are the items they marked as favorite
  * Author: Novia Wu
- * Date: 9/29/2021
+ * Date: 12/6/2021
  */
-import React, { useContext } from "react";
-import { StyleSheet, View, Text, SafeAreaView, FlatList } from "react-native";
-import ItemCard from "./ItemCard";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  Image,
+  Dimensions,
+} from "react-native";
 import { AppContext } from "../AppContext";
+import { firebaseRealtimeDB } from "../firebase";
 
+const width = Dimensions.get("window").width; //full width
 const Favorites = () => {
   const contextValue = useContext(AppContext);
+  const [fav, setFav] = useState([]);
 
+  useEffect(() => {
+    const getFavs = () => {
+      firebaseRealtimeDB.ref("favorites").on("value", (querySnapshot) => {
+        if (querySnapshot.exists()) {
+          const items = Object.values(querySnapshot.val());
+          setFav(items);
+        } else {
+          console.log("No items found");
+        }
+      });
+    };
+    getFavs();
+  }, []);
+
+  const renderItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Text style={styles.itemText}>{item.name}</Text>
+      <Image
+        source={{
+          uri: item.image_url,
+        }}
+        style={styles.photo}
+      ></Image>
+    </View>
+  );
+
+  let i = 0;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.title}>
         <Text style={styles.header}> {contextValue}'s Favorites</Text>
       </View>
-      <ItemCard />
+      <View style={styles.list}>
+        <FlatList
+          style={{ alignSelf: "flex-start" }}
+          data={fav}
+          renderItem={renderItem}
+          keyExtractor={() => {
+            const key = i++;
+            return key.toString();
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -28,11 +75,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  items: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "yellow",
-  },
   title: {
     flex: 1,
   },
@@ -40,6 +82,26 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: "Cochin",
     color: "black",
+  },
+  list: {
+    flex: 5,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  listItem: {
+    padding: 20,
+    marginVertical: 5,
+    width: 350,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  itemText: {
+    fontSize: 28,
+    fontFamily: "Cochin",
+  },
+  photo: {
+    width: 300,
+    height: 300,
   },
 });
 

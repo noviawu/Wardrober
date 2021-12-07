@@ -9,12 +9,15 @@ import { BottomNavigation, Text } from "react-native-paper";
 import Wardrobe from "./Wardrobe.js";
 import AddItem from "./AddItem.js";
 import Favorites from "./Favorites.js";
+import About from "./About.js";
 
 const WardrobeRoute = () => <Wardrobe />;
 
 const AddItemRoute = () => <AddItem />;
 
 const FavoritesRoute = () => <Favorites />;
+
+const AboutRoute = () => <About />;
 
 const lebelAddItem = (
   <Text style={{ fontFamily: "Cochin", textAlign: "center", fontSize: 16 }}>
@@ -31,19 +34,26 @@ const lebelFavorites = (
     Favorites
   </Text>
 );
+const lebelAbout = (
+  <Text style={{ fontFamily: "Cochin", textAlign: "center", fontSize: 16 }}>
+    About
+  </Text>
+);
 
 const Home = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: "wardrobe", title: lebelWardrobe, icon: "hanger" },
-    { key: "addItem", title: lebelAddItem, icon: "plus" },
+    // { key: "addItem", title: lebelAddItem, icon: "plus" },
     { key: "favorites", title: lebelFavorites, icon: "heart" },
+    { key: "about", title: lebelAbout, icon: "cog" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     wardrobe: WardrobeRoute,
-    addItem: AddItemRoute,
+    // addItem: AddItemRoute,
     favorites: FavoritesRoute,
+    about: AboutRoute,
   });
 
   return (

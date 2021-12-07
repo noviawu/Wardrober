@@ -3,14 +3,30 @@
  * Author: Novia Wu
  * Date: 12/2/2021
  */
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, ImageBackground, Text } from "react-native";
 import { useNavigation, StackActions } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AppContext } from "../AppContext";
 
 const Welcome = () => {
   const navigation = useNavigation();
   const contextValue = useContext(AppContext);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const user = await AsyncStorage.getItem("user");
+        setUser(user);
+      } catch (e) {
+        console.log("error in getUser ");
+        console.dir(e);
+      }
+    };
+    getUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -25,7 +41,7 @@ const Welcome = () => {
             style={{ fontSize: 30, fontFamily: "Cochin" }}
             onPress={() => navigation.dispatch(StackActions.replace("Home"))}
           >
-            Hi {contextValue} ...
+            Hi {user === contextValue ? contextValue : user} ...
           </Text>
         </View>
       </ImageBackground>

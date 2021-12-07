@@ -21,6 +21,7 @@ import {
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { Avatar, Button, TextInput } from "react-native-paper";
+import { useNavigation, StackActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { generateID, uploadImage } from "../utils/utils";
 
@@ -33,6 +34,7 @@ const AddItem = (props) => {
   const [brand, setBrand] = useState("");
   const [cameraOpen, setCameraOpen] = useState(false);
   const [imageURI, setImageURI] = useState();
+  const navigation = useNavigation();
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -62,22 +64,7 @@ const AddItem = (props) => {
     setBrand("");
     setCategory("");
     setImageURI();
-  };
-
-  /**
-   * saves the item info in the asych storage
-   * @param {*} value the object containing all the item information
-   * @param {*} name the name of the item
-   */
-  const storeItem = async (value, name) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(name, jsonValue);
-      console.log("just stored " + jsonValue);
-    } catch (e) {
-      console.log("error in storeData ");
-      console.dir(e);
-    }
+    navigation.dispatch(StackActions.replace("Home"));
   };
 
   const labelName = <Text style={{ fontFamily: "Cochin" }}>Name</Text>;
@@ -146,20 +133,21 @@ const AddItem = (props) => {
           <Button
             disabled={!(name && category && brand && imageURI)}
             style={styles.button}
-            mode="outlined"
+            mode="contained"
             compact={true}
-            // onPress={() => {
-            //   const theInfo = { name, category, brand, image: imageURI }; //=== name:name, category:category...
-            //   storeItem(theInfo, name);
-            //   setName("");
-            //   setBrand("");
-            //   setCategory("");
-            // }}
             onPress={(e) => {
               handleSave(e);
             }}
           >
             <Text style={{ fontFamily: "Cochin", color: "black" }}>Save</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            mode="contained"
+            compact={true}
+            onPress={() => navigation.dispatch(StackActions.replace("Home"))}
+          >
+            <Text style={{ fontFamily: "Cochin", color: "black" }}>Cancel</Text>
           </Button>
         </SafeAreaView>
       </TouchableWithoutFeedback>
@@ -312,7 +300,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   button: {
-    marginVertical: 20,
+    marginTop: 20,
     marginHorizontal: 100,
   },
   photo: {

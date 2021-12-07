@@ -1,25 +1,46 @@
-# Wardrober
+## Wardrober
 
-# Summary:
+## Summary:
 
 Mobile wardrobe that contains all the fashion items you own, aiming to streamline the process of picking your outfit-of-the-day (OOTD). This app will be equipped with simple and straight-forward functionality of adding item to your digital wardrobe, and be able to view them.
 
-# App Demo:
+## App Demo:
 
 Welcome page:
-![Screenshot](ScreenShot1.png)
-Main page:
-![Screenshot](ScreenShot2.png)
+![Screenshot](1.png)
+Home page:
+![Screenshot](2.png)
 Add item page:
-![Screenshot](ScreenShot3.png)
+![Screenshot](3.png)
+![Screenshot](4.png)
+![Screenshot](5.png)
 Favorites page:
-![Screenshot](ScreenShot4.png)
+![Screenshot](6.png)
+About page:
+![Screenshot](7.png)
 
-# Developer Notes:
+## Developer Notes:
 
-Main Technology: JavaScript
-Dependencies or libraries: React Native ran on expo, React Native Paper for the styling of the app, AsychStorage, React-Navigation
+Main Technology: JavaScript, React Native
+Dependencies or libraries:
 
-# How to run:
+- Expo: to run and manage the dependencies
+- React Navigation: to navigate between pages
+- React Native Paper: for the styling of the app and some pre-loaded components like button or textinput
+- Expo Camera: for accessing camera
+- Firebase: Realtime Database for storage of the wardrobe items and favorite items
+- Async Storage: for storage of login user name
+- Context: to provide user name throughout the app
 
-Clone the repo and have npm install all the dependencies, then run expo start in your terminal within the repo folder.
+## How to run:
+
+1. Clone the repo and have npm install all the dependencies:
+
+2. In terminal, run:
+
+   ```console
+   npm install
+   expo start
+   ```
+
+3. From there, expo will open a window in your browser that will allows you to scan the QR code with your Expo app on our mobile phone.

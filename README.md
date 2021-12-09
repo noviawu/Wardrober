@@ -44,3 +44,7 @@ Dependencies or libraries:
    ```
 
 3. From there, expo will open a window in your browser that will allows you to scan the QR code with your Expo app on our mobile phone.
+
+## link to movie demo:
+
+https://drive.google.com/drive/u/1/folders/1jy3KwVLb13LgZLiHxegViMrF_TtmPjEp
